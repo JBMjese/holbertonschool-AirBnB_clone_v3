@@ -79,17 +79,22 @@ class DBStorage:
         """ Returns an object of type `cls` with the given `id`
             from storage, or None if not found.
         """
-        obj_dict = models.storage.all(cls)
-        for k, v in obj_dict.items():
-            matchstring = cls + '.' + id
-            if k == matchstring:
-                return v
-
+        if cls not in classes.values():
+            return None
+        all_obj = self.all(cls)
+        for key, value in all_obj.items():
+            if value.id == id:
+                return value
         return None
 
     def count(self, cls=None):
         """ Returns the number of objects of type `cls` in storage,
             or all objects if `cls` is None.
         """
-        obj_dict = models.storage.all(cls)
-        return len(obj_dict)
+        if cls is None:
+            all_obj = self.all()
+            # print(all_obj)
+            return len(all_obj)
+        else:
+            all_obj = self.all(cls)
+            return len(all_obj)
