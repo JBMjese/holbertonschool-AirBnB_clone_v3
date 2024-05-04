@@ -13,7 +13,7 @@ from models.state import State
 from models.user import User
 from os import getenv
 import sqlalchemy
-from sqlalchemy import create_engine, MetaData
+from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 
 classes = {"Amenity": Amenity, "City": City,
@@ -76,9 +76,9 @@ class DBStorage:
         self.__session.remove()
 
     def get(self, cls, id):
-        """ Returns an object of type `cls` with the given `id`
-            from storage, or None if not found.
-        """
+        '''
+        Returns the object based on the class and its ID, or None if not found
+        '''
         if cls not in classes.values():
             return None
         all_obj = self.all(cls)
@@ -88,9 +88,10 @@ class DBStorage:
         return None
 
     def count(self, cls=None):
-        """ Returns the number of objects of type `cls` in storage,
-            or all objects if `cls` is None.
-        """
+        '''
+        Returns the number of objects in storage matching the given class.
+        If no class is passed, returns the count of all objects in storage
+        '''
         if cls is None:
             all_obj = self.all()
             # print(all_obj)

@@ -71,12 +71,7 @@ class FileStorage:
 
     def get(self, cls, id):
         '''
-        gets an object
-        Args:
-            cls (str): class name
-            id (str): object ID
-        Returns:
-            an object based on class name and its ID
+        Returns the object based on the class and its ID, or None if not found
         '''
         if cls not in classes.values():
             return None
@@ -88,12 +83,8 @@ class FileStorage:
 
     def count(self, cls=None):
         '''
-        counts number of objects in a class (if given)
-        Args:
-            cls (str): class name
-        Returns:
-            number of objects in class, if no class name given
-            return total number of objects in database
+        Returns the number of objects in storage matching the given class.
+        If no class is passed, returns the count of all objects in storage
         '''
         if cls is None:
             all_obj = self.all()
